@@ -1,0 +1,22 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000C\u0000o\u0000l\u0000l\u0000e\u0000G\u0000i\u0000t\u0000H\u0000u\u0000b\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShaneTawseCol/CollegeGitHub.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShaneTawseCol/CollegeGitHub/issues"
+  },
+  "homepage": "https://github.com/ShaneTawseCol/CollegeGitHub#readme",
+  "dependencies": {
+    "connect": "^3.7.0"
+  }
+}
