@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
-import MainRouter from '.../mainRouter.jsx';
+import MainRouter from '.../MainRouter.jsx';
 
 const App = ()  => {
 
