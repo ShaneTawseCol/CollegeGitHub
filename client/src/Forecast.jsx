@@ -5,14 +5,14 @@
 // import DB from '../src/assets/Screenshot 2024-05-29 192150.png';
 // import MED from '../src/assets/Screenshot 2024-05-29 192016.png';
 // import PS from '../src/assets/Screenshot 2024-05-29 191740.png';
-export default function Projects(){
+export default function Forecast(){
     return <>
 
     <main>
     <h1>Todays Weather</h1>
     <br></br>
     <h3></h3>
- <span className="skillDesc"></span> 
+
 
       <br></br>
       <section >
