@@ -6,11 +6,8 @@ const citiesData = {
   UK: ['London', 'Manchester', 'Birmingham'],
 };
 
-function AuthForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
+// AuthForm component to handle user input for authentication forms
+function AuthForm({ username, setUsername, password, setPassword, confirmPassword, setConfirmPassword, country, setCountry, city, setCity, handleAuth, buttonText }) {
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
@@ -20,16 +17,7 @@ function AuthForm() {
     } else {
       setCities([]);
     }
-  }, [country]);
-
-  const handleLogin = () => {
-    // Basic authentication logic
-    if (username === 'user' && password === 'pass') {
-      alert('Login successful');
-    } else {
-      alert('Invalid credentials');
-    }
-  };
+  }, [country, setCity]);
 
   return (
     <div className="auth-form">
@@ -45,6 +33,14 @@ function AuthForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      {confirmPassword !== undefined && (
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      )}
       <select value={country} onChange={(e) => setCountry(e.target.value)}>
         <option value="">Select Country</option>
         <option value="USA">USA</option>
@@ -59,7 +55,7 @@ function AuthForm() {
           </option>
         ))}
       </select>
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleAuth}>{buttonText}</button>
     </div>
   );
 }
