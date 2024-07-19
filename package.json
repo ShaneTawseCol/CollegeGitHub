@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "concurrently": "^8.2.2",
+    "csurf": "^1.11.0",
+    "express-session": "^1.18.0",
     "link-react": "^3.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",

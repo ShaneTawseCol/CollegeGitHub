@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import AuthForm from './AuthForm';
+import { createAccount } from '../services/apiService';
 
-// CreateAccount component to handle new account creation
 function CreateAccount() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
   const history = useHistory();
 
   const validatePassword = (password) => {
@@ -29,12 +25,7 @@ function CreateAccount() {
     }
 
     try {
-      const xsrfToken = document.cookie.match(new RegExp('(^| )XSRF-TOKEN=([^;]+)'))[2];
-      await axios.post('http://localhost:5000/create-account', { username, password }, {
-        headers: {
-          'X-CSRF-Token': xsrfToken,
-        },
-      });
+      await createAccount(username, password);
       history.push('/login');
     } catch (error) {
       console.error('Account creation failed', error);
@@ -44,20 +35,10 @@ function CreateAccount() {
   return (
     <div>
       <h2>Create Account</h2>
-      <AuthForm
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        confirmPassword={confirmPassword}
-        setConfirmPassword={setConfirmPassword}
-        country={country}
-        setCountry={setCountry}
-        city={city}
-        setCity={setCity}
-        handleAuth={handleCreateAccount}
-        buttonText="Create Account"
-      />
+      <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+      <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+      <button onClick={handleCreateAccount}>Create Account</button>
     </div>
   );
 }

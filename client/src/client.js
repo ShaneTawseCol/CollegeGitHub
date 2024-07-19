@@ -12,6 +12,7 @@ function getCsrfToken() {
 // Function to set the CSRF token header for every request
 axios.interceptors.request.use((config) => {
   const token = getCsrfToken();
+  console.log('CSRF Token:', token); // Debugging line
   if (token) {
     config.headers['X-CSRF-Token'] = token;
   }

@@ -1,24 +1,23 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
-const csrf = require('csurf');
+const csurf = require('csurf');
 const helmet = require('helmet');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
-const User = require('./models/User');
-
+// Import routes
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/userRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 // Middleware setup
 app.use(cors());
@@ -40,14 +39,14 @@ db.once('open', () => {
 
 // Session management setup
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'your_secret_key',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false, httpOnly: true },
+  cookie: { secure: false, httpOnly: true } // Set secure: true if using HTTPS
 }));
 
-// CSRF protection setup
-const csrfProtection = csrf({ cookie: true });
+/* CSRF protection setup
+const csrfProtection = csurf({ cookie: true });
 app.use(csrfProtection);
 
 // Add CSRF token to cookies
@@ -55,12 +54,21 @@ app.use((req, res, next) => {
   res.cookie('XSRF-TOKEN', req.csrfToken());
   next();
 });
+*/
 
 // Use the defined routes
 app.use('/api', apiRoutes);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/weather', weatherRoutes);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Handle any other requests by serving the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 // Simple route for testing server
 app.get('/', (req, res) => {
