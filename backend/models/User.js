@@ -8,10 +8,19 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  email: { 
+    type: String, 
+    required: true, 
+    unique: true 
+  },
   password: {
     type: String,
     required: true,
   },
+  preferences: {
+    unit: { type: String, default: 'Celsius' },
+    notifications: { type: Boolean, default: true }
+  }
 });
 
 // Encrypt password before saving the user
