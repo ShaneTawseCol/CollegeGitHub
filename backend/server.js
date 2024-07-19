@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -8,8 +9,13 @@ const csrf = require('csurf');
 const helmet = require('helmet');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 const User = require('./models/User');
+
+const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/userRoutes');
+const weatherRoutes = require('./routes/weatherRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -50,8 +56,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Use authentication routes
+// Use the defined routes
+app.use('/api', apiRoutes);
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/weather', weatherRoutes);
 
 // Simple route for testing server
 app.get('/', (req, res) => {
